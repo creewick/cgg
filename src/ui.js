@@ -42,9 +42,6 @@ window.onload = function() {
 
 inputs = document.getElementsByTagName('input');
 for (let i = 0; i < inputs.length; i++) {
-    let a = inputs[i];
-    console.log(a);
-    a.onblur = redraw();
 }
 
 
@@ -132,7 +129,13 @@ function drawNumbers() {
 }
 
 function drawPixel(x, y) {
-    ctx.fillRect(x-1, y-1, 3, 3);
+    ctx.fillRect(x, y, 1, 1);
+}
+
+function drawVerticalLine(x, y1, y2) {
+    for (let y = Math.ceil(y1); y < y2; y++) {
+        drawPixel(x, y);
+    }
 }
 
 function getRealX(x) {
