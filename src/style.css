@@ -1,0 +1,39 @@
+html, body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI Light", sans-serif;
+}
+
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    padding: 2px 0;
+    border-bottom: black 1px solid;
+}
+
+.flex > * {
+    margin: 2px 8px;
+}
+
+.task-image {
+    height: 50px;
+}
+
+label, input {
+    font: normal 28px "Segoe UI Light";
+}
+
+label, h1 {
+    position: relative;
+    top: -4px;
+}
+
+input {
+    font-weight: 900;
+    border: 0;
+    width: 50px;
+    height: 30px;
+}

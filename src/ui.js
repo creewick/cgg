@@ -1,10 +1,11 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+let onRedraw = () => {};
 let fontSize = 30;
-let xPos = 0;
-let yPos = 0;
 let zoomSize = 50;
 let zoomValue = 1;
+let xPos = 0;
+let yPos = 0;
 
 const keys = {
     'ArrowUp': n => yPos -= n,
@@ -15,7 +16,8 @@ const keys = {
     '-': n => changeZoom(-n),
     '+': changeZoom,
     '_': n => changeZoom(-n),
-    '0': resetZoom
+    'Backspace': resetZoom,
+    'Enter': resetPos
 };
 
 window.onkeydown = function(e) {
@@ -34,10 +36,17 @@ window.onresize = function() {
 };
 
 window.onload = function() {
-    xPos = window.innerWidth / 2;
-    yPos = window.innerHeight / 2;
+    resetPos();
     window.onresize(null);
 };
+
+inputs = document.getElementsByTagName('input');
+for (let i = 0; i < inputs.length; i++) {
+    let a = inputs[i];
+    console.log(a);
+    a.onblur = redraw();
+}
+
 
 function changeZoom(size){
     zoomSize += size;
@@ -50,6 +59,7 @@ function changeZoom(size){
         zoomValue /= 2;
         zoomSize = 50
     }
+
     fontSize = 33 - 3 * zoomValue.toString().replace('.', '').length;
 }
 
@@ -59,11 +69,17 @@ function resetZoom() {
     fontSize = 30;
 }
 
+function resetPos() {
+    xPos = Math.floor(window.innerWidth / 2) + 0.5;
+    yPos = Math.floor(window.innerHeight / 2) + 0.5;
+}
+
 function redraw() {
     clear();
     drawGrid();
     drawCenter();
     drawNumbers();
+    onRedraw();
 }
 
 function drawLine(x1, y1, x2, y2) {
@@ -86,7 +102,6 @@ function drawHorizontal(y) {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = 'black';
     ctx.lineCap = 'round';
     ctx.lineWidth = 1;
 
@@ -107,10 +122,31 @@ function drawCenter() {
 
 function drawNumbers() {
     ctx.font = `${fontSize}px Segoe UI Light`;
+    ctx.fillStyle = 'black';
 
     for (let x = xPos % zoomSize - zoomSize; x < canvas.width; x += zoomSize)
-        ctx.fillText((x - xPos) * zoomValue / zoomSize, x + 2, yPos - 2);
+        ctx.fillText(getRealX(x), x + 2, yPos - 2);
 
     for (let y = yPos % zoomSize; y < canvas.height + zoomSize; y += zoomSize)
-        ctx.fillText((y - yPos) * zoomValue / zoomSize, xPos + 2, y - 2);
+        ctx.fillText(getRealY(y), xPos + 2, y - 2);
+}
+
+function drawPixel(x, y) {
+    ctx.fillRect(x-1, y-1, 3, 3);
+}
+
+function getRealX(x) {
+    return (x - xPos) * zoomValue / zoomSize;
+}
+
+function getRealY(y) {
+    return - (y - yPos) * zoomValue / zoomSize;
+}
+
+function getCanvasX(x) {
+    return Math.floor(xPos + x * zoomSize / zoomValue);
+}
+
+function getCanvasY(y) {
+    return Math.floor(yPos - y * zoomSize / zoomValue);
 }

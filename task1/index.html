@@ -3,14 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Задача 1</title>
-    <link type="text/css" rel="stylesheet" href="../common.css">
+    <link type="text/css" rel="stylesheet" href="../src/style.css">
 </head>
 <body>
-    <h1>Задание 1</h1>
-    <label for="a">Начало отрезка:</label>
-    <input id="a" type="number">
+    <div class="flex">
+        <h1>Задание 1</h1>
+        <img class="task-image" src="task.jpg" alt="y=a-x+\sqrt{\frac{x^3}{b+x}}">
+        <label> Начало:
+            <input id="xMin" type="number" value="-10">
+        </label>
+        <label> Конец:
+            <input id="xMax" type="number" value="10">
+        </label>
+        <label> a:
+            <input id="a" type="number" value="0">
+        </label>
+        <label> b:
+            <input id="b" type="number" value="0">
+        </label>
+    </div>
     <canvas id="canvas"></canvas>
-    <script src="../ui.js"></script>
+    <script src="../src/ui.js"></script>
     <script src="task1.js"></script>
 </body>
 </html>
