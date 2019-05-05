@@ -1,4 +1,5 @@
 const canvas = document.getElementById('canvas');
+let redrawTimeout = setTimeout(() => {});
 const ctx = canvas.getContext('2d');
 let onRedraw = () => {};
 let fontSize = 30;
@@ -23,7 +24,8 @@ const keys = {
 window.onkeydown = function(e) {
     const delta = e.shiftKey ? 10 : 1;
 
-    if (e.key in keys){
+    if (e.key in keys) {
+        clearTimeout(redrawTimeout);
         keys[e.key](delta);
         redraw();
     }
@@ -42,6 +44,7 @@ window.onload = function() {
 
 inputs = document.getElementsByTagName('input');
 for (let i = 0; i < inputs.length; i++) {
+    inputs.item(i).onchange = redraw;
 }
 
 
@@ -76,7 +79,7 @@ function redraw() {
     drawGrid();
     drawCenter();
     drawNumbers();
-    onRedraw();
+    redrawTimeout = setTimeout(onRedraw, 50);
 }
 
 function drawLine(x1, y1, x2, y2) {
@@ -99,6 +102,7 @@ function drawHorizontal(y) {
 }
 
 function drawGrid() {
+    ctx.strokeStyle = 'black';
     ctx.lineCap = 'round';
     ctx.lineWidth = 1;
 

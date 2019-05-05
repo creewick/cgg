@@ -14,11 +14,28 @@ onRedraw = function() {
 
     let prevY = NaN;
 
+    const aX = getCanvasX(-b);
+    if (b !== 0) {
+        if (b > 0) {
+            const yPrev = getCanvasY(F(a, b, getRealX(aX - 1)));
+            linkPoints(aX, yPrev, 0);
+        }
+        else {
+            const yNext = getCanvasY(F(a, b, getRealX(aX + 1)));
+            linkPoints(aX, 0, yNext);
+        }
+    }
+
     for (let x = xMin; x <= xMax; x++) {
         const realX = getRealX(x);
+
+        if (realX < -b && getRealX(x+1) > -b)
+            continue;
+
         const realY = F(a, b, realX);
-        const y = getCanvasY(realY);
+        let y = getCanvasY(realY);
         if (!Number.isNaN(y)) {
+            y = Math.max(-1, Math.min(canvas.height, y));
             if (Number.isNaN(prevY)) prevY = y;
             linkPoints(x, prevY, y);
         }
