@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача 6</title>
+    <link type="text/css" rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+<div class="flex">
+    <h1>Задание 6</h1>
+    <h2>Алгоритм Робертса</h2>
+    <label> Пирамида:
+        <input
+            id="pyramid"
+            class="wide"
+            value="[ [0,2,1,-4], [2,0,1,-4], [0,-2,1,0], [-2,0,1,0], [0,0,-1,0] ]"
+        >
+    </label>
+    <label> Параллелепипед:
+        <input
+            id="box"
+            class="wide"
+            value="[ [-1,0,0,-2], [-1,0,0,-4], [0,-1,0,-2], [0,-1,0,-4], [0,0,-1,-2], [0,0,-1,-4] ]"
+        >
+    </label>
+</div>
+<canvas id="canvas"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.0.0/math.min.js"></script>
+<script src="../src/ui3d.js"></script>
+<script src="task6.js"></script>
+</body>
+</html>

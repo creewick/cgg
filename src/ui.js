@@ -102,7 +102,6 @@ function drawHorizontal(y) {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = 'black';
     ctx.lineCap = 'round';
     ctx.lineWidth = 1;
 

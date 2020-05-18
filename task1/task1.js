@@ -45,15 +45,15 @@ onRedraw = function() {
 
 function linkPoints(x, y1, y2) {
     if (y1 === y2) {
-        drawPixel(x, y1);
+        drawPixel(x-1, y1);
     }
 
     if (y1 < y2) {
-        drawVerticalLine(x, y1, (y1 + y2) / 2);
-        drawVerticalLine(x+1, (y1 + y2) / 2, y2);
+        drawVerticalLine(x-1, y1, (y1 + y2) / 2);
+        drawVerticalLine(x, (y1 + y2) / 2, y2);
     }
     if (y2 < y1) {
-        drawVerticalLine(x, (y1 + y2) / 2, y1);
-        drawVerticalLine(x+1, y2, (y1 + y2) / 2);
+        drawVerticalLine(x-1, (y1 + y2) / 2, y1);
+        drawVerticalLine(x, y2, (y1 + y2) / 2);
     }
 }
